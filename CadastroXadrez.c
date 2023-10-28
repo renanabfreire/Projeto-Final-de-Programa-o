@@ -3,7 +3,6 @@
 #include <time.h> //biblioteca para manipular tempo 
 #include <unistd.h> //biblioteca para funções como 'sleep()' !
 
-//inicio do codigo
 //estrutura de representar os players
 struct player {
     char nome[20], sobrenome[20], sexo, pais[20];

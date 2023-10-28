@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h> //biblioteca para manipular tempo 
 #include <unistd.h> //biblioteca para funções como 'sleep()' !
+#define LIMITE_JOGADORES 8 // Declara uma constante para o limite máximo de jogadores
+
 
 //estrutura de representar os players
 struct player {
@@ -74,6 +76,11 @@ int main() {
         scanf(" %c", &opcao);
 
         if (opcao == '1') {
+             // Verifica se o limite de jogadores foi atingido
+            if (numCadastros >= LIMITE_JOGADORES) {
+                printf("Limite de %d jogadores atingido. Nao e possivel criar mais cadastros.\n", LIMITE_JOGADORES);
+                 sleep(5); //conta 5 segundos antes de voltar pra tela inicial novamente
+            } else{
             novoCadastro.id = rand() % 10000; //// Gera um número aleatório entre 0 e 9999 (4 dígitos) para o ID
             
             //// Verifica se o ID gerado já existe na lista de cadastros, se tiver vai criar outro
@@ -131,6 +138,7 @@ int main() {
 
 
             sleep(5); //conta 5 segundos antes de voltar pra tela inicial, isso graças às biblitecas que foram adicionadas
+            }
         } else if (opcao == '2') {
              printf("Procurando partida...\n");
     puts("Para voltar ao inicio, pressione 4");

@@ -5,8 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-void registroDeJogadas() {
+char* registroDeJogadas() {
     char jogada[10];
+    char c=' ';
     char *jogadas = NULL;
     int i = 1;
     int rodada = 1;
@@ -39,9 +40,7 @@ void registroDeJogadas() {
 
     } while (strchr(jogada, '#') == NULL);
 
-    printf("%s", jogadas);
-
-    free(jogadas);
+    return jogadas;
 }
 
 #endif

@@ -115,6 +115,8 @@ int main() {
     char ganhadores[8][30];
     char perdedores[8][30];
     int resultado;
+    int jogosregistrados=0;
+    int partatual = 0;
 
     srand(time(NULL));
 
@@ -188,7 +190,6 @@ int main() {
 
             numpartidas = numerodepartidas();
             Partida part[numpartidas];
-            int partatual = 1;
             int iterac = 0;
 
             for (int i = 0; i < numjogadores - 1; i++)
@@ -204,15 +205,23 @@ int main() {
               }
             }
 
+            partatual += jogosregistrados;
+
             fseek(arquivodapartida, 0, SEEK_END);
 
-            printf("\nDigite nº da partida atual: ");
-            scanf("%d\n", partatual);
+            printf("\nTornei número: ");
 
-            fprintf(arquivodapartida ,"\n\nRodada %d", partatual);
-            fprintf(arquivodapartida, "\npartidas: %s x %s \n", part[partatual-1].jogador_a, part[partatual-1].jogador_b);
+            for (int i = 0; i < numpartidas; i++)
+            {
+              fprintf(arquivodapartida, "\nRodada %d", i + 1);
+              fprintf(arquivodapartida, "\npartidas: %s x %s \n", partidas[i].jogador_a, partidas[i].jogador_b);
+              printf("\nRodada %d", i + 1);
+              printf("\npartidas: %s x %s \n", partidas[i].jogador_a, partidas[i].jogador_b);
 
-            fprintf(arquivodapartida, registroDeJogadas());
+              fprintf(arquivodapartida, registroDeJogadas());
+              printf("-----------------------------------");
+            }
+            jogosregistrados +=1;
 
             puts("Para voltar ao inicio, pressione 4");
 

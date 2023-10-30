@@ -1,0 +1,10 @@
+
+Rodada 1
+partidas: Orangelord1301 x Jales 
+e4 e5 bc4 kc6 Qh5 e6 #Qf7
+Rodada 2
+partidas: Orangelord1301 x Bosco 
+f4 e6 e3 #Qh3
+Rodada 3
+partidas: Jales x Bosco 
+e4 e5 bc4 kc6 Qh5 e6 #Qf7

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <string.h>
 
 #define LIMITE_JOGADORES 8
 
@@ -9,6 +10,21 @@ struct player {
     char nome[20];
     int idade;
 };
+
+char nomes[8][30];
+  char idades;
+  int numjogadores;
+  int i = 0;
+  int k = 0;
+
+ typedef struct
+  {
+    char jogador_a[30];
+    char jogador_b[30]
+  } Partida;
+
+  
+
 
 void salvarJogadores(struct player* cadastros, int numCadastros) {
     FILE* arquivo = fopen("jogadores.txt", "w");
@@ -45,7 +61,60 @@ void listarNomesEIdades(struct player* cadastros, int numCadastros) {
     }
 }
 
+void criararray(){
+    FILE *arq;
+    int positions = 0;
+    char *temp = 0;
+    char *result;
+    char line[30];
+
+    arq = fopen("jogadores.txt", "r");
+
+    if (arq == NULL)
+    {
+      printf("Falha ao abrir o arquivo");
+    }
+    else
+    {
+      while (!feof(arq))
+      {
+        result = fgets(line, 30, arq);
+        if (result)
+        {
+          temp = strtok(line, " ");
+          strcpy(nomes[positions], temp);
+        }
+        positions++;
+      }
+    }
+    numjogadores = positions;
+    fclose(arq);
+  }
+
+  int numerodepartidas()
+  {
+    int iteracoes = 0;
+
+    for (int i = 0; i < numjogadores - 1; i++)
+    {
+      for (int j = 0; j < numjogadores - 1; j++)
+      {
+        if (i != j && j >= i)
+        {
+          iteracoes++;
+        }
+      }
+    }
+    return iteracoes;
+  }
+
 int main() {
+    int numpartidas;
+    int l = 0;
+    char ganhadores[8][30];
+    char perdedores[8][30];
+    int resultado;
+
     srand(time(NULL));
 
     char opcao;
@@ -57,7 +126,7 @@ int main() {
 
     while (1) {
         printf("\n____Seja Bem vindo ao Xadrez virtual! O que deseja fazer?____\n\n");
-        puts("1. Cadastrar novo player\n2. Jogar\n3. Listar jogadores cadastrados\n");
+        puts("1. Cadastrar novo player\n2. Jogar\n3. Listar jogadores cadastrados\n 4.Gerar tabelas\n");
         scanf(" %c", &opcao);
 
         if (opcao == '1') {
@@ -99,7 +168,38 @@ int main() {
             if (opcaoLista == '4') {
                 printf("Voltando, aguarde...\n");
             }
+        }else if(opcao == '4'){
+ 
+  
+    criararray();
+
+    numpartidas = numerodepartidas();
+    Partida partidas[numpartidas];
+    int iteracoes = 0;
+
+    for (int i = 0; i < numjogadores - 1; i++)
+    {
+      for (int j = 0; j < numjogadores - 1; j++)
+      {
+        if (i != j && j >= i)
+        {
+          strcpy(partidas[iteracoes].jogador_a, nomes[i]);
+          strcpy(partidas[iteracoes].jogador_b, nomes[j]);
+          iteracoes++;
         }
+      }
     }
-    return 0;
-}
+     for (int i = 0; i < (numpartidas / 2); i++)
+    {
+      printf("\nRodada %d", i + 1);
+      printf("\npartidas: %s x %s \n", partidas[i].jogador_a, partidas[i].jogador_b);
+      printf("partidas: %s x %s \n", partidas[numpartidas - (1 + i)].jogador_a, partidas[numpartidas - (1 + i)].jogador_b);
+      printf("-----------------------------------");
+    }
+  }
+
+        }
+        return 0;
+    }
+    
+
